@@ -14,8 +14,16 @@ class CreatePostsTagsTable extends Migration
     public function up()
     {
         Schema::create('posts_tags', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            //foreign key to NM table Posts
+            $table->unsignedInteger('posts_idposts');
+            $table->foreign('posts_idposts')
+            ->references('idposts')->on('posts')
+            ->onDelete('cascade');
+            //foreign key to NM table Tags
+            $table->unsignedInteger('tags_idtags');
+            $table->foreign('tags_idtags')
+                    ->references('idtags')->on('tags')
+                    ->onDelete('cascade');
         });
     }
 
